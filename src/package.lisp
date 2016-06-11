@@ -9,3 +9,9 @@
 (in-package :hypercast)
 
 ;; blah blah blah.
+
+(defgeneric cast (object type)
+    (:metaclass inlined-generic-function))
+
+
+

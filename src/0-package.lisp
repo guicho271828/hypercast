@@ -5,13 +5,16 @@
 
 (in-package :cl-user)
 (defpackage hypercast
-  (:use :cl :iterate :alexandria :inlined-generic-function))
+  (:use :cl :iterate :alexandria :inlined-generic-function)
+  (:export
+   #:cast))
 (in-package :hypercast)
 
 ;; blah blah blah.
 
 (defgeneric cast (object type)
-    (:metaclass inlined-generic-function))
+  (:generic-function-class inlined-generic-function))
+
 
 
 

@@ -27,6 +27,7 @@
   :depends-on (:iterate :alexandria :inlined-generic-function)
   :components ((:module "src"
                 :components
-                ((:file "package"))))
+                ((:file "0-package")
+                 (:file "1-methods"))))
   :description "Fast, generic, automatic type casting (conversion) framework"
   :in-order-to ((test-op (test-op :hypercast.test))))

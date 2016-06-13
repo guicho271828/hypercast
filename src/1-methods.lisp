@@ -23,6 +23,17 @@
 (declaim (type fixnum +fixnum-size/16+))
 (defconstant +fixnum-size/16+ (* 16 (ceiling (integer-length most-positive-fixnum) 16)))
 
+(define-constant +static-8bit-vectors+
+    #.(iter (with a1 = (make-array 256 :element-type 'bit-vector))
+            (for i below 256)
+            (for a2 = (make-array 8 :element-type 'bit))
+            (iter (for j below 8)
+                  (setf (aref a2 j) (ldb (byte 1 j) i)))
+            (setf (aref a1 i) a2)
+            (finally (return a1)))
+    :test 'equalp
+    :documentation "an 8-bit cache for converting bitvec and integer")
+
 (defmethod cast ((i fixnum) (type (eql 'bit-vector)))
   (declare (fixnum i))
   (declare (ignorable type))

@@ -11,7 +11,11 @@ exec ros -Q -- $0 "$@"
   (uiop:quit (if (handler-case
                      (progn
                        (asdf:load-system :hypercast.test)
-                       (eval (read-from-string "(5am:run! :hypercast)")))
+(eval
+ (read-from-string
+  "(let ((res (5am:run :hypercast)))
+     (5am:explain! res)
+     (every #'5am::TEST-PASSED-P res))")))
                    (serious-condition (c)
                      (describe c)
                      (uiop:quit 2)))

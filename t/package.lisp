@@ -27,8 +27,16 @@
             (fail "failed to (cast 128 '~a)" type)))))
 
 (test integer.bench
-  (finishes
-    (iter (for type in '(bit-vector character))
-          (time
-           (5am:for-all ((i (gen-integer :max char-code-limit :min 0)))
-             (cast i type))))))
+  (iter (for type in '(bit-vector character))
+        (for form = `(lambda () (loop repeat 10 do (loop for i below 1000000 do (cast i ',type)))))
+        #+nil
+        (progn
+          (for fn = (compile nil form))
+          (format t "~%Without inlining")
+          (time (funcall fn))
+          (pass))
+        (for fn2 = (let ((*features* (cons :inline-generic-function *features*)))
+                     (compile nil form)))
+        (format t "~%With inlining")
+        (time (funcall fn2))
+        (pass)))

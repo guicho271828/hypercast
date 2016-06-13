@@ -9,6 +9,7 @@
 
 (defmethod cast ((i fixnum) (type (eql 'bit-vector)))
   (declare (ignorable type))
+  (declare (optimize (speed 3) (safety 0)))
   (iter (with a = (make-array +fixnum-size/16+ :element-type 'bit))
         (for j below +fixnum-size/16+)
         (setf (aref a j) (ldb (byte 1 j) i))

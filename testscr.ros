@@ -11,7 +11,7 @@ exec ros -Q -- $0 "$@"
 (defun main (&rest argv)
   (declare (ignorable argv))
   (uiop:quit (if (handler-case
-                     (progn
+                     (let ((*load-verbose* nil) (*compile-verbose* nil))
                        (asdf:load-system :hypercast)
                        (asdf:load-system :hypercast.test)
 (eval

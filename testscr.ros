@@ -4,16 +4,14 @@
 exec ros -Q -- $0 "$@"
 |#
 
-(ql:quickload :fiveam :silent t)
-
 (declaim (sb-ext:muffle-conditions style-warning sb-ext:compiler-note))
+(ql:quickload :fiveam :silent t)
+(ql:quickload :hypercast.test :silent t)
 
 (defun main (&rest argv)
   (declare (ignorable argv))
   (uiop:quit (if (handler-case
                      (progn
-                       (asdf:load-system :hypercast :verbose nil)
-                       (asdf:load-system :hypercast.test :verbose nil)
 (eval
  (read-from-string
   "(let ((res (5am:run :hypercast)))

@@ -28,13 +28,12 @@
 
 (test integer.bench
   (iter (for type in '(bit-vector character))
-        (for form = `(lambda () (loop repeat 10 do (loop for i below 1000000 do (cast i ',type)))))
-        #+nil
-        (progn
-          (for fn = (compile nil form))
-          (format t "~%Without inlining")
-          (time (funcall fn))
-          (pass))
+        (for form = `(lambda ()
+                       (declare (optimize (speed 3)))
+                       (declare (inline cast))
+                       (loop repeat 10 do
+                         (loop for i fixnum below 1000000 do
+                           (cast i ',type)))))
         (for fn2 = (let ((*features* (cons :inline-generic-function *features*)))
                      (compile nil form)))
         (format t "~%With inlining")

@@ -25,6 +25,7 @@
   :source-control (:git "https://github.com/guicho271828/hypercast.git")
   :license "LLGPL"
   :depends-on (:iterate :alexandria :inlined-generic-function)
+  :serial t
   :components ((:module "src"
                 :components
                 ((:file "0-package")

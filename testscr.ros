@@ -6,6 +6,7 @@ exec ros -Q -- $0 "$@"
 
 (declaim (sb-ext:muffle-conditions style-warning sb-ext:compiler-note))
 (ql:quickload :fiveam :silent t)
+(ql:quickload :hypercast :silent t)
 (ql:quickload :hypercast.test :silent t)
 
 (defun main (&rest argv)

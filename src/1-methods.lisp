@@ -86,3 +86,7 @@
   (declare (ignorable type))
   (coerce x 'function))
 
+(defmethod cast (x (type (eql 't)))
+  (declare (ignorable type))
+  x)
+

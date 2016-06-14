@@ -1,8 +1,6 @@
 #!/bin/bash
 
-branches="master bitvector-opt"
-
-for b in $branches
+for b in $(git for-each-ref --shell --format='%(refname)' refs/heads/)
 do
     git checkout $b
     ros ./testscr.ros 2>/dev/null | grep "seconds of real time"

@@ -43,6 +43,8 @@
           do (setf (aref octet-vec index) (ldb (byte 8 (* i 8)) bignum))
           finally (return octet-vec))))
 
+;; coerce wraper
+
 (defmethod cast ((x sequence) (type (eql 'list)))
   (declare (ignorable type))
   (coerce x type))
@@ -72,6 +74,15 @@
     (collect
         `(defmethod cast ((x real) (type (eql ',type)))
            (declare (ignorable type))
-           x))))
+           (coerce x ',type)))))
 
+(defmethod cast ((x function) (type (eql 'function)))
+  (declare (ignorable type))
+  x)
+(defmethod cast ((x symbol) (type (eql 'function)))
+  (declare (ignorable type))
+  (coerce x 'function))
+(defmethod cast ((x list) (type (eql 'function)))
+  (declare (ignorable type))
+  (coerce x 'function))
 

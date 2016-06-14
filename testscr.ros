@@ -4,7 +4,9 @@
 exec ros -Q -- $0 "$@"
 |#
 
-(ql:quickload :fiveam)
+(ql:quickload :fiveam :silent t)
+
+(declaim (sb-ext:muffle-conditions style-warning sb-ext:compiler-note))
 
 (defun main (&rest argv)
   (declare (ignorable argv))

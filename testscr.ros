@@ -11,6 +11,7 @@ exec ros -Q -- $0 "$@"
   (uiop:quit (if (handler-case
                      (progn
                        (asdf:compile-system :hypercast)
+                       (asdf:load-system :hypercast)
                        (asdf:load-system :hypercast.test)
 (eval
  (read-from-string

@@ -33,7 +33,7 @@
         (for form = `(lambda ()
                        (declare (optimize (speed 3) (debug 0) (safety 0)))
                        (declare (inline cast))
-                       (loop repeat 10 do
+                       (loop repeat 3 do
                          (loop for i fixnum below 1000000 do
                            (cast i ',type)))))
         (for fn2 = (let ((*features* (cons :inline-generic-function *features*)))

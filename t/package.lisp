@@ -40,6 +40,5 @@
         (for fn2 = (let ((*features* (cons :inline-generic-function *features*)))
                      (compile nil form)))
         (format t "~%With inlining")
-        (disassemble fn2)
         (time (funcall fn2))
         (pass)))

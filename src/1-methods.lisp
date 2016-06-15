@@ -27,11 +27,11 @@
   (declare (fixnum i))
   (declare (ignorable type))
   (declare (optimize (speed 3) (safety 0)))
-  (iter (declare (iterate:declare-variables))
-        (with a = (make-array +fixnum-size/16+ :element-type 'bit))
-        (for j below +fixnum-size/16+)
-        (setf (aref a j) (ldb (byte 1 j) i))
-        (finally (return a))))
+  (loop with a = (make-array +fixnum-size/16+ :element-type 'bit)
+        for j fixnum below +fixnum-size/16+
+        do
+     (setf (aref a j) (ldb (byte 1 j) i))
+        finally (return a)))
 
 ;; from ironclad
 

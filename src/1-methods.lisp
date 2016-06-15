@@ -65,3 +65,8 @@
                             :start2 offset :end2 (+ offset 8))))))
     a))
 
+
+(defmethod cast (thing (type (eql 'string)))
+  (declare (ignorable type))
+  (princ-to-string thing))
+

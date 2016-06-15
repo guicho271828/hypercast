@@ -20,9 +20,11 @@
   (declare (ignorable type))
   x)
 
+(declaim (type fixnum +fixnum-size/16+))
 (defconstant +fixnum-size/16+ (* 16 (ceiling (integer-length most-positive-fixnum) 16)))
 
 (defmethod cast ((i fixnum) (type (eql 'bit-vector)))
+  (declare (fixnum i))
   (declare (ignorable type))
   (declare (optimize (speed 3) (safety 0)))
   (iter (declare (iterate:declare-variables))

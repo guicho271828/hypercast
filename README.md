@@ -1,8 +1,14 @@
 
 # Hypercast - Fast, generic, automatic type casting (conversion) framework
 
+This library may be considered as a *parasitic* library in that it may carry codes from various existing libraries. Currently:
+
++ ironcrad
+
+
 ## Usage
 
+`(cast 'bit-vector 5) -> #b101000000000000000000000`
 
 ## Dependencies
 This library is at least tested on implementation listed below:

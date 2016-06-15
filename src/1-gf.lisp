@@ -6,5 +6,8 @@
   (:generic-function-class inlined-generic-function)
   (:argument-precedence-order type object))
 
+(defgeneric cost (type-from type-to)
+  (:documentation "estimated cost of conversion operation"))
+
 (defmacro in-compile-time (&body body)
   (eval `(progn ,@body)))

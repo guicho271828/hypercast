@@ -2,6 +2,7 @@
 
 ;; from ironclad
 
+(defmethod cost ((bignum (eql 'integer)) (type (eql :octet-vector))) 10)
 (defmethod cast ((bignum integer) (type (eql :octet-vector)))
   (declare (ignorable type))
   (let* ((n-bytes (ceiling (integer-length bignum) 8))

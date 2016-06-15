@@ -29,7 +29,8 @@
             (fail "failed to (cast 128 '~a)" type)))))
 
 (test integer.bench
-  (iter (for type in '(bit-vector character))
+  (iter (for type in '(bit-vector ;; character
+                       ))
         (for form = `(lambda ()
                        (declare (optimize (speed 3) (debug 0) (safety 0)))
                        (declare (inline cast))

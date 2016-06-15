@@ -17,8 +17,10 @@
               :inlined-generic-function)
  :serial t
  :components ((:file "src/0-package")
-              (:file "src/1-coerce")
-              (:file "src/1-methods")
-              (:file "src/1-octets"))
+              (:file "src/1-gf")
+              (:file "src/2-coerce")
+              (:file "src/2-methods")
+              (:file "src/2-octets")
+              (:file "src/3-search"))
  :description "Fast, generic, automatic type casting (conversion) framework"
  :in-order-to ((test-op (test-op :hypercast.test))))

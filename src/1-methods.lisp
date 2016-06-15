@@ -24,12 +24,10 @@
 (defconstant +fixnum-size/16+ (* 16 (ceiling (integer-length most-positive-fixnum) 16)))
 
 (define-constant +static-8bit-vectors+
-    #.(iter (with a1 = (make-array 256 :element-type 'bit-vector))
+    #.(iter (with a1 = (make-array (* 256 8) :element-type 'bit))
             (for i below 256)
-            (for a2 = (make-array 8 :element-type 'bit))
             (iter (for j below 8)
-                  (setf (aref a2 j) (ldb (byte 1 j) i)))
-            (setf (aref a1 i) a2)
+                  (setf (aref a1 (+ (* 8 i) j)) (ldb (byte 1 j) i)))
             (finally (return a1)))
     :test 'equalp
     :documentation "an 8-bit cache for converting bitvec and integer")
@@ -38,11 +36,15 @@
   (declare (fixnum i))
   (declare (ignorable type))
   (declare (optimize (speed 3) (safety 0)))
-  (in-compile-time
-    `(let ((a (make-array +fixnum-size/16+ :element-type 'bit)))
-       ,@(loop for j fixnum below +fixnum-size/16+
-               collect `(setf (aref a ,j) (ldb (byte 1 ,j) i)))
-       a)))
+  (iter (declare (iterate:declare-variables))
+        (with a = (make-array +fixnum-size/16+ :element-type 'bit))
+        (for j below +fixnum-size/16+ by 8)
+        (for i-masked = (ash (mask-field (byte 8 j) i) (- j)))
+        (for offset = (* i-masked 8))
+        (replace a +static-8bit-vectors+
+                 :start1 j :end1 (+ 8 j)
+                 :start2 offset :end2 (+ offset 8))
+        (finally (return a))))
 
 ;; from ironclad
 

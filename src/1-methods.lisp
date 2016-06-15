@@ -36,15 +36,15 @@
   (declare (fixnum i))
   (declare (ignorable type))
   (declare (optimize (speed 3) (safety 0)))
-  (iter (declare (iterate:declare-variables))
-        (with a = (make-array +fixnum-size/16+ :element-type 'bit))
-        (for j below +fixnum-size/16+ by 8)
-        (for i-masked = (ash (mask-field (byte 8 j) i) (- j)))
-        (for offset = (* i-masked 8))
-        (replace a +static-8bit-vectors+
-                 :start1 j :end1 (+ 8 j)
-                 :start2 offset :end2 (+ offset 8))
-        (finally (return a))))
+  (let ((a (make-array +fixnum-size/16+ :element-type 'bit)))
+    (loop for j below +fixnum-size/16+ by 8
+          for i-masked = (ash (mask-field (byte 8 j) i) (- j))
+          for offset = (* i-masked 8)
+          do
+       (replace a +static-8bit-vectors+
+                :start1 j :end1 (+ 8 j)
+                :start2 offset :end2 (+ offset 8)))
+    a))
 
 ;; from ironclad
 

@@ -18,6 +18,8 @@
 
 ;; run test with (run! test-name) 
 
+(pushnew :inline-generic-function *features*)
+
 (test integer
   (iter (for type in '(bit-vector character))
         (handler-case
@@ -29,7 +31,7 @@
 (test integer.bench
   (iter (for type in '(bit-vector character))
         (for form = `(lambda ()
-                       (declare (optimize (speed 3)))
+                       (declare (optimize (speed 3) (debug 0) (safety 0)))
                        (declare (inline cast))
                        (loop repeat 10 do
                          (loop for i fixnum below 1000000 do

@@ -14,6 +14,13 @@
   (declare (ignorable type))
   (char-code char))
 
+(defmethod cast ((x null) (type (eql 'fixnum)))
+  (declare (ignorable type))
+  0)
+(defmethod cast ((sym symbol) (type (eql 'fixnum)))
+  (declare (ignorable type))
+  1)
+
 (defmethod cast ((x string) (type (eql 'character)))
   (declare (ignorable type))
   (coerce x 'character))

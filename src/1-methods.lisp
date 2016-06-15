@@ -9,6 +9,11 @@
 (defmethod cast ((code fixnum) (type (eql 'character)))
   (declare (ignorable type))
   (code-char code))
+
+(defmethod cast ((char character) (type (eql 'fixnum)))
+  (declare (ignorable type))
+  (char-code char))
+
 (defmethod cast ((x string) (type (eql 'character)))
   (declare (ignorable type))
   (coerce x 'character))

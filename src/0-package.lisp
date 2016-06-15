@@ -12,8 +12,7 @@
 
 ;; blah blah blah.
 
-(defgeneric cast (object type)
-  (:argument-precedence-order type object))
+(defgeneric cast (object type))
 
 (defmacro in-compile-time (&body body)
   (eval `(progn ,@body)))

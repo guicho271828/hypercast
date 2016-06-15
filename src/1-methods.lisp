@@ -27,11 +27,11 @@
   (declare (fixnum i))
   (declare (ignorable type))
   (declare (optimize (speed 3) (safety 0)))
-  (loop with a = (make-array +fixnum-size/16+ :element-type 'bit)
-        for j fixnum below +fixnum-size/16+
-        do
-     (setf (aref a j) (ldb (byte 1 j) i))
-        finally (return a)))
+  (in-compile-time
+    `(let ((a (make-array +fixnum-size/16+ :element-type 'bit)))
+       ,@(loop for j fixnum below +fixnum-size/16+
+               collect `(setf (aref a ,j) (ldb (byte 1 ,j) i)))
+       a)))
 
 ;; from ironclad
 
@@ -64,9 +64,6 @@
 (defmethod cast ((x complex) (type (eql 'complex)))
   (declare (ignorable type))
   x)
-
-(defmacro in-compile-time (&body body)
-  (eval `(progn ,@body)))
 
 (in-compile-time
   (iter

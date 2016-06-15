@@ -26,9 +26,8 @@
   :license "LLGPL"
   :depends-on (:iterate :alexandria :inlined-generic-function)
   :serial t
-  :components ((:module "src"
-                :components
-                ((:file "0-package")
-                 (:file "1-methods"))))
+  :pathname "src/"
+  :components ((:file "0-package")
+               (:file "1-methods"))
   :description "Fast, generic, automatic type casting (conversion) framework"
   :in-order-to ((test-op (test-op :hypercast.test))))

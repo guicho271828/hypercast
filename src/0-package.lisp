@@ -5,7 +5,8 @@
 
 (in-package :cl-user)
 (defpackage hypercast
-  (:use :cl :iterate :alexandria :inlined-generic-function)
+  (:use :closer-common-lisp
+        :iterate :alexandria :trivia :inlined-generic-function)
   (:export
    #:cast))
 

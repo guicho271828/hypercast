@@ -1,6 +1,11 @@
 
 # Hypercast - Fast, generic, automatic type casting (conversion) framework
 
+Features:
+
++ Implemented by `inline-generic-function`, so it is *as fast as* the case of using compiler-macros and *as powerful as* CLOS generic functions.
++ Define the set of atomic converters. When no implementation of direct conversion is available, it still tries to convert them by combining several converters in a row. Conversion sequence is found as a path in the directed graph defined by each atomic converter. Edge cost is heuristically encoded in the `cost` generic function and it finds a path using dijkstra search.
+
 This library may be considered as a *parasitic* library in that it may carry codes from various existing libraries. Currently:
 
 + ironcrad

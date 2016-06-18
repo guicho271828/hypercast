@@ -1,19 +1,23 @@
 
 # Hypercast - Fast, generic, automatic type casting (conversion) framework
 
-Features:
-
-+ Implemented by `inline-generic-function`, so it is *as fast as* the case of using compiler-macros and *as powerful as* CLOS generic functions.
-+ Define the set of atomic converters. When no implementation of direct conversion is available, it still tries to convert them by combining several converters in a row. Conversion sequence is found as a path in the directed graph defined by each atomic converter. Edge cost is heuristically encoded in the `cost` generic function and it finds a path using dijkstra search.
-
-This library may be considered as a *parasitic* library in that it may carry codes from various existing libraries. Currently:
-
-+ ironcrad
-
-
-## Usage
-
 `(cast 'bit-vector 5) -> #b101000000000000000000000`
+
+Highlights:
+
++ Define the set of atomic converters. The semantics for the primary exported function, `cast`, is the same as `cl:coerce`.
++ Implemented with `inline-generic-function`, so it is **as fast as** the case of using compiler-macros (no dynamic dispatch as long as the second argument is a constant) and **as powerful as** CLOS generic functions.
++ **When no implementation of direct conversion is available**, it tries to convert the value to the desired type by finding the optimal conversion sequence using dijkstra search. Conversion sequence is found as a path in the directed graph defined by the set of atomic converters. Edge cost is heuristically encoded in the `cost` generic function. The path is found by a simple dijkstra search.
++ Currently the path finding in the type space is done in runtime, but I intend to move it to the compile time in the near future.
+
+This library intend to consolidate and connect several libraries related to data conversion:
+
++ bit-smasher
++ JSON-related libs
++ BDDs
++ octets
+
+In terms of implementing each atomic converter, this library could be viewed as a *parasitic* library in that it may carry codes from various existing libraries, or just call the APIs of those libraries.
 
 ## Dependencies
 This library is at least tested on implementation listed below:

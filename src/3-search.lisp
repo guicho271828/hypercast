@@ -76,11 +76,11 @@ implements a breadth-first search
                    (unless (array-in-bounds-p open priority)
                      (adjust-array open (1+ priority) :initial-element nil))
                    (pushnew node (aref open priority)))))
-              (update (curr succ)
+              (update (curr super succ)
                 (match* (curr succ)
                   (((node :priority c-g)
                     (node :priority (place s-g) :parent (place parent)))
-                   (let ((new-g (+ (cost curr succ) c-g)))
+                   (let ((new-g (+ (cost super succ) c-g)))
                      (when (< new-g s-g)
                        (setf s-g new-g
                              parent curr)
@@ -99,9 +99,11 @@ implements a breadth-first search
                 (iter (with curr = (ptrace (pop-min)))
                       (when (goal-p curr)
                         (return-from dijkstra (path curr)))
-                      (for (real-curr succ) in (applicable-edges curr))
-                      (ptrace (update (fetch-node real-curr)
-                                      (fetch-node succ)))))
+                      (for (real-curr succ) in (ptrace (applicable-edges curr)))
+                      (ptrace
+                       (update curr
+                               (fetch-node real-curr)
+                               (fetch-node succ)))))
               (path (node)
                 (nreverse (%path node)))
               (%path (node)
@@ -109,10 +111,11 @@ implements a breadth-first search
                   ((node name :parent parent)
                    (cons name (handler-case (%path parent)
                                 (unbound-slot () nil)))))))
-       (iter (for (super _) in (edges))
-             (when (subtypep start super)
-               (ptrace (insert (fetch-node super 0)))))
+       (ptrace (insert (fetch-node start 0)))
        (iter (expand))))))
 
 (defmethod cast (object type)
   (reduce #'cast (dijkstra (type-of object) type) :initial-value object))
+
+;; I want to compile this part of the dynamic execution away... how to do this?
+

@@ -69,7 +69,7 @@ implements a breadth-first search
                    (remove-if-not
                     (lambda (x)
                       (subtypep name x))
-                    (edges) :key #'car))))
+                    (ptrace (edges)) :key #'car))))
               (insert (node)
                 (ematch node
                   ((node priority)

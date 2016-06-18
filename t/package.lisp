@@ -41,3 +41,8 @@
         (format t "~%With inlining")
         (time (funcall fn2))
         (pass)))
+
+(test auto-casting
+  (is (equal (cast #\a 'bit-vector)
+             (cast (cast #\a 'fixnum)
+                   'bit-vector))))

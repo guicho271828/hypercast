@@ -20,6 +20,22 @@ This library aims at consolidating and connecting several libraries related to d
 
 In terms of implementing each atomic converter, this library could be viewed as a *parasitic* library in that it may carry codes from various existing libraries, or just call the APIs of those libraries.
 
+## Preliminary Performance Evaluation
+
+Preliminary results only.
+
++ We measured the runtime of converting a fixnum to various types for 3000000 iterations each using `cl:time`.
++ The target types are a bitvector (bitwise encoding), a character (code-char) and octet-vector (code from ironclad).
++ We compare the runtimes between the inlined GF by `inlined-generic-function` and the standard generic function in ANSI CL.
+
++ Environent: Thinkpad X61, Core2Duo 1.8GHz, running on the battery
+
+| target type  | standard GF | inlined GF |
+|--------------|-------------|------------|
+| bitvector    | 2.247 (sec) | 1.764      |
+| character    | 0.436       | 0.004      |
+| octet-vector | 1.003       | 0.304      |
+
 ## Dependencies
 This library is at least tested on implementation listed below:
 

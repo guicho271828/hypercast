@@ -7,7 +7,7 @@ Highlights:
 
 + Define the set of atomic converters. The semantics for the primary exported function, `cast`, is the same as `cl:coerce`.
 + Implemented with `inline-generic-function`, so it is **as fast as** the case of using compiler-macros (no dynamic dispatch as long as the second argument is a constant) and **as powerful as** CLOS generic functions.
-+ **When no implementation of direct conversion is available**, it tries to convert the value to the desired type by finding the optimal conversion sequence using dijkstra search. Conversion sequence is found as a path in the directed graph defined by the set of atomic converters. Edge cost is heuristically encoded in the `cost` generic function. The path is found by a simple dijkstra search.
++ **When no implementation of direct conversion is available**, it tries to convert the value to the desired type by finding the optimal conversion sequence using dijkstra search. Conversion sequence is found as a path in the directed graph defined by the set of atomic converters. Edge cost is heuristically encoded in the `cost` generic function.
 + Currently the path finding in the type space is done in runtime, but I intend to move it to the compile time in the near future.
 
 This library intend to consolidate and connect several libraries related to data conversion:

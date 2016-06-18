@@ -9,9 +9,9 @@ Highlights:
     + `cast` accepts all target types supported by `coerce` in ANSI
 + **Minimal dispatching overhead**: Implemented with `inline-generic-function`, so it is **as fast as** the case of using compiler-macros (no dynamic dispatch as long as the second argument is a constant) and **as powerful as** CLOS generic functions.
 + **Automatic Conversion**: When no implementation of direct conversion is available, it tries to convert the value to the desired type by finding the optimal conversion sequence using dijkstra search. Conversion sequence is found as a path in the directed graph defined by the set of atomic converters. Edge cost is heuristically encoded in the `cost` generic function.
-    + Currently the path finding in the type space is done in runtime, but I intend to move it to the compile time in the near future.
+    + Currently the path finding in the type space is done in runtime, but I plan to move it to the compile time in the near future.
 
-This library intend to consolidate and connect several libraries related to data conversion:
+This library aims at consolidating and connecting several libraries related to data conversion:
 
 + bit-smasher
 + JSON-related libs

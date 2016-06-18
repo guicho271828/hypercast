@@ -74,7 +74,7 @@ implements a breadth-first search
                 (ematch node
                   ((node priority)
                    (unless (array-in-bounds-p open priority)
-                     (adjust-array open priority :initial-element nil))
+                     (adjust-array open (1+ priority) :initial-element nil))
                    (pushnew node (aref open priority)))))
               (update (curr succ)
                 (match* (curr succ)

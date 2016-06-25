@@ -1,7 +1,15 @@
 
 # Hypercast - Fast, generic, automatic type casting (conversion) framework
 
-`(cast 'bit-vector 5) -> #b101000000000000000000000`
+```licp
+(cast 5 'bit-vector)
+; -> #*1010000000000000000000000000000000000000000000000000000000000000
+
+(cast #\c 'bit-vector)
+; -> (cast (cast #\c 'fixnum) 'bit-vector)
+; -> (cast 99 'bit-vector)
+; -> #*1100011000000000000000000000000000000000000000000000000000000000
+```
 
 Highlights:
 

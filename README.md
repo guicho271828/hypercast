@@ -36,7 +36,7 @@ Preliminary results only.
 + The target types are a bitvector (bitwise encoding), a character (code-char) and octet-vector (code from ironclad).
 + We compare the runtimes between the inlined GF by `inlined-generic-function` and the standard generic function in ANSI CL.
 
-+ Environent: Thinkpad X61, Core2Duo 1.8GHz, running on the battery
++ Environent: Thinkpad X61, Core2Duo 1.8GHz, running on battery
 
 | target type  | standard GF | inlined GF |
 |--------------|-------------|------------|
@@ -57,8 +57,6 @@ Also, it depends on the following libraries:
     Alexandria is a collection of portable public domain utilities.
 + inlined-generic-function by *Masataro Asai* :
     MOP implementation of the fast inlinable generic functions dispatched in compile-time
-
-## Installation
 
 ## Author
 
